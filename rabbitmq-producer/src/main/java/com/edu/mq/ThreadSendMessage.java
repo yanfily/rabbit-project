@@ -12,27 +12,24 @@ import java.util.concurrent.Semaphore;
  * @author ysr
  * @version 1.0
  * @date 2020/1/10
- * @Description
+ * @Description   模拟100个用户并发向队列发送10000条数据
  */
 @ComponentScan
 public class ThreadSendMessage {
 
-    private static
-
-
-    public static int count=0;
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context=new AnnotationConfigApplicationContext(Send.class);
         RabbitTemplate rabbitTemplate = context.getBean(RabbitTemplate.class);
         ExecutorService executor = Executors.newCachedThreadPool();
         Semaphore seamaphore=new Semaphore(100);
-        for(int i=0;i<=100000;i++){
+        for(int i=0;i<10000;i++){
+            int index=i;
         executor.execute(()->{
             try{
                 seamaphore.acquire();
 
-                  //  rabbitTemplate.convertAndSend(Thread.currentThread().getName()+"100个用户并发,发送消息到消息队列----"+i);
-                  add();
+                   rabbitTemplate.convertAndSend(Thread.currentThread().getName()+",100个用户并发,发送消息到消息队列----"+index);
+
 
 
             }catch (Exception e){
@@ -43,12 +40,18 @@ public class ThreadSendMessage {
         });
         }
 
-        System.out.println(count);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        context.close();
+
+
     }
 
-    private static void add() {
-        count++;
-    }
+
 
 
 }

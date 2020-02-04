@@ -19,7 +19,7 @@ public class MqConfig {
     @Bean
     public ConnectionFactory connectionFactory(){
         CachingConnectionFactory factory = new CachingConnectionFactory();
-        factory.setUri("amqp://guest:guest@192.168.126.129:5672");
+        factory.setUri("amqp://admin:123456@192.168.247.128:5672");
         return factory;
     }
 

@@ -1,6 +1,7 @@
 package com.edu.mq;
 
 import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -26,6 +27,8 @@ public class Send {
          // 默认Quque,rabbitTemplate配置了值,(默认DEFAULT_ROUTING_KEY="" DEFAULT_EXCHANGE="")
         //   rabbitTemplate.convertAndSend("发送消息默认Quque---default.quque成功");
         //   rabbitTemplate.convertAndSend("info.direct.info","debug","发送消息debugQueue");
+
+
 
 
         //后置处理器可更改消息参数  或重新new 一个新的消息对象
